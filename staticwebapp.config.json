@@ -2,82 +2,42 @@
   "trailingSlash": "auto",
   "routes": [
     {
-      "route": "/clients",
+      "route": "/clients/*",
       "redirect": "/ru/clients/",
       "statusCode": 301
     },
     {
-      "route": "/clients/",
-      "redirect": "/ru/clients/",
-      "statusCode": 301
-    },
-    {
-      "route": "/members",
+      "route": "/members/*",
       "redirect": "/ru/members/",
       "statusCode": 301
     },
     {
-      "route": "/members/",
-      "redirect": "/ru/members/",
-      "statusCode": 301
-    },
-    {
-      "route": "/team",
+      "route": "/team/*",
       "redirect": "/ru/team/",
       "statusCode": 301
     },
     {
-      "route": "/team/",
-      "redirect": "/ru/team/",
-      "statusCode": 301
-    },
-    {
-      "route": "/guides",
+      "route": "/guides/*",
       "redirect": "/ru/guides/",
       "statusCode": 301
     },
     {
-      "route": "/guides/",
-      "redirect": "/ru/guides/",
-      "statusCode": 301
-    },
-    {
-      "route": "/principles",
+      "route": "/principles/*",
       "redirect": "/ru/principles/",
       "statusCode": 301
     },
     {
-      "route": "/principles/",
-      "redirect": "/ru/principles/",
-      "statusCode": 301
-    },
-    {
-      "route": "/investors",
+      "route": "/investors/*",
       "redirect": "/ru/investors/",
       "statusCode": 301
     },
     {
-      "route": "/investors/",
-      "redirect": "/ru/investors/",
-      "statusCode": 301
-    },
-    {
-      "route": "/book",
+      "route": "/book/*",
       "redirect": "/ru/book/",
       "statusCode": 301
     },
     {
-      "route": "/book/",
-      "redirect": "/ru/book/",
-      "statusCode": 301
-    },
-    {
-      "route": "/manifest",
-      "redirect": "/ru/manifest/",
-      "statusCode": 301
-    },
-    {
-      "route": "/manifest/",
+      "route": "/manifest/*",
       "redirect": "/ru/manifest/",
       "statusCode": 301
     },
