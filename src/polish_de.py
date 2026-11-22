@@ -91,7 +91,7 @@ PAIRS = [
     ('Das Einkommen des Teams wird zu gleichen Teilen geteilt.', 'Das Einkommen wird nach vereinbartem Einsatz geteilt, nicht nach Titel. Gleicher Einsatz, gleicher Anteil.'),
     ('teilen das Einkommen zu gleichen Teilen und entscheiden, wer dazukommt.',
      'teilen das Einkommen nach vereinbartem Einsatz – Vollzeit, Teilzeit oder nebenbei – und entscheiden, wer dazukommt.'),
-    ('an das Team, zu gleichen Teilen unter den Mitgliedern – immer', 'an das Team, geteilt nach vereinbartem Einsatz – immer'),
+    ('an das Team in jedem Projekt, zu gleichen Teilen unter den Mitgliedern', 'an das Team in jedem Projekt, geteilt nach vereinbartem Einsatz'),
     ('Einkommen zu gleichen Teilen, Teamvereinbarung', 'Einkommen nach Einsatz, Teamvereinbarung'),
     ('<li><b>5 % des ersten Projekts</b> des vorgestellten Auftraggebers.</li>', '<li><b>5 % des ersten Projekts</b> des vorgestellten Auftraggebers, bis 2.000 €.</li>'),
     ('<span>an den Vermittler für das erste Projekt</span>', '<span>an den Vermittler für das erste Projekt, bis 2.000 €</span>'),
