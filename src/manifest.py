@@ -36,6 +36,7 @@ h2{font-size:40px;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
 .cover h1{font-size:64px;font-weight:800;letter-spacing:-.03em;line-height:1}
 .cover .kind{font-size:22px;color:var(--gold2);font-weight:600;margin-top:12px;letter-spacing:.04em}
 .cover .q{font-style:italic;color:#9DC3BF;font-size:16px;margin-top:22px;max-width:46ch}
+@media screen and (min-width:1000px){.cover{padding-left:calc((100% - 900px)/2 + 64px);padding-right:calc((100% - 900px)/2 + 64px)}.cover>div:last-child{margin-top:28px}}
 /* intro */
 .intro .big{font-size:28px;line-height:1.35;font-weight:600;letter-spacing:-.01em}
 .intro .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px;color:var(--soft)}
