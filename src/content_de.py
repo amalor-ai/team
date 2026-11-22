@@ -222,7 +222,7 @@ HERO_HOME['de'] = dict(quote='„Ein Bündel Schilfrohr zerbricht man nicht auf 
 
 from content_extra import CIRCLES_TXT
 CIRCLES_TXT['de'] = dict(core='Bund', team='das Team · macht die Arbeit', purpose='für wen wir arbeiten', support='Kreis der Unterstützung',
-    motto='„Alle stehen füreinander ein“', motto_src='– nach Baal HaSulam, „Die Bürgschaft“',
+    motto='„Alle stehen füreinander ein“', motto_src='',
     path=['Ein Problem, das Menschen wichtig ist', 'Pilot', 'Projekt', 'Startup'],
     path_note='Im Startup hält jedes Mitglied des Kreises einen Anteil nach seinem Beitrag. Den größten Anteil erhalten die, die die Hauptarbeit geleistet haben.',
     man='Manifest (RU)', links='Verbindungen zwischen den Kreisen')

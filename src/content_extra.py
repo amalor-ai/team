@@ -551,12 +551,12 @@ section.home-doors{padding-block:40px 20px;border-top:0}
 # ---- hero v3: the circles (team in the centre) + path problem → startup + manifesto link ----
 CIRCLES_TXT = {
  'ru': dict(core='Связь', team='команда · делает работу', purpose='ради кого работа', support='круг поддержки',
-            motto='«Все отвечают друг за друга»', motto_src='— мысль Бааль Сулама, «Поручительство»',
+            motto='«Все отвечают друг за друга»', motto_src='',
             path=['Проблема, важная людям', 'Пилот', 'Проект', 'Стартап'],
             path_note='В стартапе у каждого участника круга есть доля по вкладу. Больше всего — у тех, кто сделал основную работу.',
             man='Манифест', links='связи между кругами'),
  'en': dict(core='Bond', team='the team · does the work', purpose='who the work is for', support='circle of support',
-            motto='“Everyone is responsible for one another”', motto_src='— after Baal HaSulam, “The Arvut”',
+            motto='“Everyone is responsible for one another”', motto_src='',
             path=['A problem people care about', 'Pilot', 'Project', 'Startup'],
             path_note='In the startup every member of the circle holds a share according to their contribution. The largest shares go to those who did the core work.',
             man='Manifesto (RU)', links='links between the circles'),
@@ -608,7 +608,7 @@ def hero_home(lang):
     <p class="hb-lead">{h['lead']}</p>
     <div class="hb-cta"><a class="btn" href="{{L}}{h['b1'][1]}">{h['b1'][0]}</a><a class="btn ghost" href="{{L}}{h['b2'][1]}">{h['b2'][0]}</a><a class="btn manifest" href="{{L}}manifest/"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z M8 20a3 3 0 0 1-3-3 M9 9h6 M9 13h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>{t['man']}</a></div>
   </div>
-  <figure class="hb-art">{circles_svg(lang)}<figcaption><b>{t['motto']}</b><span>{t['motto_src']}</span></figcaption></figure>
+  <figure class="hb-art">{circles_svg(lang)}<figcaption><b>{t['motto']}</b>{('<span>'+t['motto_src']+'</span>') if t['motto_src'] else ''}</figcaption></figure>
   <div class="hb-path"><ol>{steps}</ol><p>{t['path_note']}</p></div>
   <div class="hb-money"><p class="hb-ex">{h['ex']}</p><div class="hb-bar">{bar}</div><p class="hb-legend">{h['legend']}</p><ul class="hb-facts">{facts}</ul></div>
 </header>'''

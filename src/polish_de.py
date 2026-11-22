@@ -97,7 +97,6 @@ PAIRS = [
     ('<span>an den Vermittler für das erste Projekt</span>', '<span>an den Vermittler für das erste Projekt, bis 2.000 €</span>'),
     ('Dann erhalten Sie die Vermittlungsprämie und einen Anteil für Ihre Arbeit.</p>',
      'Dann erhalten Sie die Vermittlungsprämie und einen Anteil für Ihre Arbeit.</p>\n      <p class="when">Mitarbeitende des Auftraggebers und Berater, die für ihn auswählen, erhalten keine Prämie.</p>'),
-    ('<span>– nach Baal HaSulam, „Die Bürgschaft“</span>', ''),
 ]
 
 # only on one page: {page: [(old, new)]}
