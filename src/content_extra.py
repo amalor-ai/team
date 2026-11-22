@@ -302,7 +302,7 @@ BOOK = {
     <h1>Last Generation Team</h1>
     <p class="sub">Like a bundle of reeds</p>
     <p class="lead">How to achieve more together than alone — and do what the world needs. A book about how a small team chooses its tasks, organises itself and grows — from the first order to a network of teams.</p>
-    <p class="when">The book is in preparation, Russian edition first. Sign up as a member and we will let you know when it is out.</p>
+    <p class="when">The book is in preparation. Sign up as a member and we will let you know when it is out.</p>
     <div><a class="btn" href="{L}members/#join">Sign up</a></div>
   </div>
 </section>'''}

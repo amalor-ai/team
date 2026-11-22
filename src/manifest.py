@@ -9,7 +9,7 @@ from manifest_text import T, SOURCE_URLS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://team.amalor.ai'
-OUT = {'ru': ('manifest', '../'), 'en': ('en/manifest', '../../'), 'de': ('de/manifest', '../../')}
+OUT = {'ru': ('ru/manifest', '../../'), 'en': ('en/manifest', '../../'), 'de': ('de/manifest', '../../')}
 HOME = {'ru': '../', 'en': '../', 'de': '../'}
 
 CSS = r'''
@@ -197,7 +197,8 @@ def build_html(lang, for_pdf=False):
     path = ''.join(f'<div><i>{i+1:02d}</i><h4>{a}</h4><p>{b}</p></div>' for i, (a, b) in enumerate(t['path']))
     owners = ''.join(f'<div><b>{a}</b>{b}</div>' for a, b in t['owners'])
     invite = ''.join(f'<div><h4>{a}</h4><p>{b}</p></div>' for a, b in t['invite'])
-    alts = ''.join(f'<link rel="alternate" hreflang="{l}" href="{BASE}/{OUT[l][0]}/">' for l in OUT)
+    alts = ('<meta name="robots" content="noindex, nofollow">' if lang == 'ru'
+            else ''.join(f'<link rel="alternate" hreflang="{l}" href="{BASE}/{OUT[l][0]}/">' for l in ('en', 'de')))
     web_bar = '' if for_pdf else (f'<nav class="topbar"><a href="{HOME[lang]}" class="home">{t["home"]}</a>'
                                   f'<a class="dl" href="{up}assets/manifest-{lang}.pdf" download>{t["pdf"]}</a></nav>')
     return f'''<!doctype html>

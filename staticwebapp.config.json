@@ -1,11 +1,104 @@
 {
   "trailingSlash": "auto",
   "routes": [
-    { "route": "/assets/fonts/*", "headers": { "Cache-Control": "public, max-age=31536000, immutable" } },
-    { "route": "/assets/*", "headers": { "Cache-Control": "public, max-age=86400" } }
+    {
+      "route": "/clients",
+      "redirect": "/ru/clients/",
+      "statusCode": 301
+    },
+    {
+      "route": "/clients/",
+      "redirect": "/ru/clients/",
+      "statusCode": 301
+    },
+    {
+      "route": "/members",
+      "redirect": "/ru/members/",
+      "statusCode": 301
+    },
+    {
+      "route": "/members/",
+      "redirect": "/ru/members/",
+      "statusCode": 301
+    },
+    {
+      "route": "/team",
+      "redirect": "/ru/team/",
+      "statusCode": 301
+    },
+    {
+      "route": "/team/",
+      "redirect": "/ru/team/",
+      "statusCode": 301
+    },
+    {
+      "route": "/guides",
+      "redirect": "/ru/guides/",
+      "statusCode": 301
+    },
+    {
+      "route": "/guides/",
+      "redirect": "/ru/guides/",
+      "statusCode": 301
+    },
+    {
+      "route": "/principles",
+      "redirect": "/ru/principles/",
+      "statusCode": 301
+    },
+    {
+      "route": "/principles/",
+      "redirect": "/ru/principles/",
+      "statusCode": 301
+    },
+    {
+      "route": "/investors",
+      "redirect": "/ru/investors/",
+      "statusCode": 301
+    },
+    {
+      "route": "/investors/",
+      "redirect": "/ru/investors/",
+      "statusCode": 301
+    },
+    {
+      "route": "/book",
+      "redirect": "/ru/book/",
+      "statusCode": 301
+    },
+    {
+      "route": "/book/",
+      "redirect": "/ru/book/",
+      "statusCode": 301
+    },
+    {
+      "route": "/manifest",
+      "redirect": "/ru/manifest/",
+      "statusCode": 301
+    },
+    {
+      "route": "/manifest/",
+      "redirect": "/ru/manifest/",
+      "statusCode": 301
+    },
+    {
+      "route": "/assets/fonts/*",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "route": "/assets/*",
+      "headers": {
+        "Cache-Control": "public, max-age=86400"
+      }
+    }
   ],
   "responseOverrides": {
-    "404": { "redirect": "/", "statusCode": 302 }
+    "404": {
+      "redirect": "/",
+      "statusCode": 302
+    }
   },
   "globalHeaders": {
     "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.hsforms.com https://api-eu1.hsforms.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
@@ -15,5 +108,7 @@
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
     "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
   },
-  "mimeTypes": { ".woff2": "font/woff2" }
+  "mimeTypes": {
+    ".woff2": "font/woff2"
+  }
 }

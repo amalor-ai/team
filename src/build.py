@@ -22,12 +22,13 @@ OUT = SRC.parent
 BASE = 'https://team.amalor.ai'
 PAGES = ['index', 'clients', 'members', 'team', 'guides', 'principles', 'investors', 'book']
 HIDDEN = set()                         # reachable by link only, noindex, not in menus or sitemap
+PUBLIC_LANGS = ['en', 'de']            # in the switcher, hreflang, sitemap; 'ru' lives under /ru/, by link only (noindex)
 VER = '7'                              # bump when assets/*.css or *.js change
 
 
 def path_of(lang, page):
     p = '' if page == 'index' else page + '/'
-    return ('' if lang == 'ru' else lang + '/') + p
+    return lang + '/' + p
 
 
 def url(lang, page):
@@ -90,9 +91,9 @@ GUIDE = {'de': ('/de/copilot-fuer-geschaeftsfuehrer/', 'Ratgeber'), 'en': ('/cop
          'ru': ('/ru/copilot-dlya-vladeltsev/', 'Статьи')}
 CHROME = {
     'de': {'name': 'Team', 'cta': 'Aufgabe stellen', 'menu': 'Menü', 'close': 'Schließen', 'top': 'Nach oben', 'lang': 'Sprache',
-           'nav': 'Hauptnavigation', 'sub': 'Bereiche', 'langs': 'Deutsch · English · Русский'},
+           'nav': 'Hauptnavigation', 'sub': 'Bereiche', 'langs': 'Deutsch · English'},
     'en': {'name': 'Team', 'cta': 'Submit a task', 'menu': 'Menu', 'close': 'Close', 'top': 'Back to top', 'lang': 'Language',
-           'nav': 'Main navigation', 'sub': 'Sections', 'langs': 'English · Deutsch · Русский'},
+           'nav': 'Main navigation', 'sub': 'Sections', 'langs': 'English · Deutsch'},
     'ru': {'name': 'Команда', 'cta': 'Поставить задачу', 'menu': 'Меню', 'close': 'Закрыть', 'top': 'Наверх', 'lang': 'Язык',
            'nav': 'Главная навигация', 'sub': 'Разделы', 'langs': 'Русский · English · Deutsch'},
 }
@@ -105,8 +106,9 @@ def cta_href(lang, L):
 def header(lang, page, logo_link, R, L):
     c = CHROME[lang]
     tail = '' if page == 'index' else page + '/'
-    langsw = ''.join(f'<a href="{R}{"" if o == "ru" else o + "/"}{tail}" hreflang="{o}" lang="{o}" data-l="{o}"'
-                     + (' aria-current="page"' if o == lang else '') + f'>{o.upper()}</a>' for o in ['en', 'de', 'ru'])
+    shown = ['en', 'de', 'ru'] if lang == 'ru' else PUBLIC_LANGS
+    langsw = ''.join(f'<a href="{R}{o}/{tail}" hreflang="{o}" lang="{o}" data-l="{o}"'
+                     + (' aria-current="page"' if o == lang else '') + f'>{o.upper()}</a>' for o in shown)
     products = ''.join(f'<a class="pl" href="{MAIN}{h}">{t}</a>' for h, t in PRODUCTS[lang])
     products += f'<a class="pl pl-main" href="{L}" aria-current="page">{c["name"]}</a>'
     g = GUIDE[lang]
@@ -216,12 +218,13 @@ def wrap_blocks(body):
 def render(lang, page, css, logo_link, p):
     depth = path_of(lang, page).count('/')
     R = '../' * depth or './'
-    L = R + ('' if lang == 'ru' else lang + '/')
+    L = R + lang + '/'
     title = PAGE_TITLES[lang][page]
     desc = p['desc'] if page == 'index' else DESC[lang][page]
     body = wrap_blocks(body_for(lang, page, p).replace('{R}', R).replace('{L}', L))
-    robots = '<meta name="robots" content="noindex, nofollow">\n' if page in HIDDEN else ''
-    alts = '' if page in HIDDEN else (''.join(f'<link rel="alternate" hreflang="{l}" href="{url(l, page)}">\n' for l in LANGS)
+    hidden = page in HIDDEN or lang not in PUBLIC_LANGS
+    robots = '<meta name="robots" content="noindex, nofollow">\n' if hidden else ''
+    alts = '' if hidden else (''.join(f'<link rel="alternate" hreflang="{l}" href="{url(l, page)}">\n' for l in PUBLIC_LANGS)
                                        + f'<link rel="alternate" hreflang="x-default" href="{url("en", page)}">\n')
     return (f'<!doctype html>\n<html lang="{lang}">\n<head>\n<meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
@@ -230,7 +233,7 @@ def render(lang, page, css, logo_link, p):
             f'<meta property="og:title" content="{title}">\n<meta property="og:description" content="{desc}">\n'
             f'<meta property="og:url" content="{url(lang, page)}">\n<meta property="og:type" content="website">\n'
             f'<meta property="og:image" content="{BASE}/assets/book-cover-{lang}.jpg">\n'
-            + ('' if page in HIDDEN else f'<script type="application/ld+json">{jsonld(lang, page, desc, p["faq"])}</script>\n')
+            + ('' if hidden else f'<script type="application/ld+json">{jsonld(lang, page, desc, p["faq"])}</script>\n')
             + '<meta name="theme-color" content="#083C3A">\n'
             '<link rel="icon" href="/favicon.ico" sizes="48x48">\n<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n'
             '<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n'
@@ -242,6 +245,32 @@ def render(lang, page, css, logo_link, p):
             f'{p["script"]}\n<script src="/assets/chrome.js?v={VER}" defer></script>\n</body>\n</html>\n')
 
 
+def ru_not_first(h):
+    # forms on EN/DE pages: Russian is one working language among others, listed after Arabic
+    h = re.sub(r'(<option value="ru">Русский</option>)(.*?<option value="ar">[^<]*</option>)', r'\2\1', h)
+    return re.sub(r'(<label class="chip"><input type="checkbox" id="[a-z]-lo\d+" value="ru"><span>Русский</span></label>)'
+                  r'(.*?<label class="chip"><input type="checkbox" id="[a-z]-lo\d+" value="ar"><span>[^<]*</span></label>)', r'\2\1', h)
+
+
+ROOT_HTML = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Last Generation Team · AMALOR</title>
+<link rel="canonical" href="{BASE}/en/">
+<link rel="alternate" hreflang="en" href="{BASE}/en/"><link rel="alternate" hreflang="de" href="{BASE}/de/">
+<link rel="alternate" hreflang="x-default" href="{BASE}/en/">
+<meta name="theme-color" content="#083C3A">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>(function(){{var l='';try{{l=localStorage.getItem('amalor-lang')||''}}catch(e){{}}
+if(l!=='en'&&l!=='de'&&l!=='ru'){{l=((navigator.languages&&navigator.languages[0])||navigator.language||'en').toLowerCase().indexOf('de')===0?'de':'en'}}
+location.replace('/'+l+'/'+location.search+location.hash)}})();</script>
+<noscript><meta http-equiv="refresh" content="0; url=/en/"></noscript>
+</head><body style="font-family:system-ui,sans-serif;background:#083C3A;color:#fff;margin:0;display:grid;place-items:center;min-height:100vh">
+<p><a style="color:#E9C77B" href="/en/">English</a> · <a style="color:#E9C77B" href="/de/">Deutsch</a></p>
+</body></html>
+'''
+
+
 def main():
     de_pages = {}
     for lang in LANGS:
@@ -250,6 +279,8 @@ def main():
             out = OUT / path_of(lang, page) / 'index.html'
             out.parent.mkdir(parents=True, exist_ok=True)
             html_ = content_v4.fix_text(lang, render(lang, page, css, logo_link, p))
+            if lang in PUBLIC_LANGS:
+                html_ = ru_not_first(html_)
             if lang == 'de':
                 de_pages[page] = html_
                 html_ = polish_de.apply(html_, page)
@@ -259,15 +290,15 @@ def main():
     pub = [pg for pg in PAGES if pg not in HIDDEN]
     (OUT / 'sitemap.xml').write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
-        + ''.join(f'  <url><loc>{url(l, pg)}</loc>' + ''.join(f'<xhtml:link rel="alternate" hreflang="{a}" href="{url(a, pg)}"/>' for a in LANGS)
-                  + '</url>\n' for pg in pub for l in LANGS)
+        + ''.join(f'  <url><loc>{url(l, pg)}</loc>' + ''.join(f'<xhtml:link rel="alternate" hreflang="{a}" href="{url(a, pg)}"/>' for a in PUBLIC_LANGS)
+                  + '</url>\n' for pg in pub for l in PUBLIC_LANGS)
         + '</urlset>\n', encoding='utf-8')
     (OUT / 'robots.txt').write_text(
         'User-agent: *\nAllow: /\n\n# AI assistants and search: welcome\n'
         + ''.join(f'User-agent: {b}\nAllow: /\n\n' for b in ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-User',
                                                               'Claude-SearchBot', 'PerplexityBot', 'Google-Extended', 'Bingbot'])
         + f'Sitemap: {BASE}/sitemap.xml\n', encoding='utf-8')
-    (OUT / 'llms.txt').write_text(f'''# Last Generation Team (Команда последнего поколения)
+    (OUT / 'llms.txt').write_text(f'''# Last Generation Team (Team der letzten Generation)
 
 > Small teams of 3–5 specialists, organised by AMALOR, build software for small and mid-sized companies, remotely. Work runs in stages; the client accepts every stage and pays per stage. Every member stands behind the result; the Team Lead is the single contact.
 
@@ -284,9 +315,9 @@ def main():
 
 ## Pages
 ''' + ''.join(f'- [{PAGE_TITLES["en"][pg]}]({url("en", pg)})\n' for pg in pub)
-      + ''.join(f'- [{PAGE_TITLES["ru"][pg]}]({url("ru", pg)})\n' for pg in pub)
       + ''.join(f'- [{PAGE_TITLES["de"][pg]}]({url("de", pg)})\n' for pg in pub)
       + '- Organiser: [AMALOR](https://amalor.ai), hello@amalor.ai\n', encoding='utf-8')
+    (OUT / 'index.html').write_text(ROOT_HTML, encoding='utf-8')
     print('built', len(PAGES) * len(LANGS), 'pages into', OUT)
 
 

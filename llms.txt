@@ -1,4 +1,4 @@
-# Last Generation Team (Команда последнего поколения)
+# Last Generation Team (Team der letzten Generation)
 
 > Small teams of 3–5 specialists, organised by AMALOR, build software for small and mid-sized companies, remotely. Work runs in stages; the client accepts every stage and pays per stage. Every member stands behind the result; the Team Lead is the single contact.
 
@@ -22,14 +22,6 @@
 - [Principles — Last Generation Team](https://team.amalor.ai/en/principles/)
 - [Investors — Last Generation Team](https://team.amalor.ai/en/investors/)
 - [Book — Last Generation Team](https://team.amalor.ai/en/book/)
-- [Команда последнего поколения](https://team.amalor.ai/)
-- [Заказчикам — Команда последнего поколения](https://team.amalor.ai/clients/)
-- [Участникам — Команда последнего поколения](https://team.amalor.ai/members/)
-- [Как работает команда — Команда последнего поколения](https://team.amalor.ai/team/)
-- [Проводникам — Команда последнего поколения](https://team.amalor.ai/guides/)
-- [Принципы — Команда последнего поколения](https://team.amalor.ai/principles/)
-- [Инвесторам — Команда последнего поколения](https://team.amalor.ai/investors/)
-- [Книга — Команда последнего поколения](https://team.amalor.ai/book/)
 - [Team der letzten Generation](https://team.amalor.ai/de/)
 - [Auftraggeber — Team der letzten Generation](https://team.amalor.ai/de/clients/)
 - [Mitglieder — Team der letzten Generation](https://team.amalor.ai/de/members/)
